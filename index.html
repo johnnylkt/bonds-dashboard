@@ -1,0 +1,173 @@
+<html><head><base href="https://servicenow.accounting.app/bonds-dashboard%20great,%20can%20you%20make%20that%20pie%20chart%20a%20little%20bigger,%20then%20I%20need%20four%20bonds%20instead%20of%20three,%20and%20for%20the%20account%20codes%20pills%20can%20we%20tone%20down%20the%20color%20a%20little%20so%20it%20doesnt%20overshadow%20the%20white%20text,%20good,%20now%20can%20you%20make%20the%20data%20value%20a%20little%20more%20diverse?%20for%20the%20account%20codes%20can%20you%20give%20a%20dark%20grey%20text%20color.%20Great,%20just%20slightly%20bit%20darker%20background%20color%20for%20the%20pills%20in%20account%20code,%20and%20rename%20the%204%20bonds%20to%20give%20them%20a%20bond%20name%20instead%20of%20category.%20Take%20out%20the%20text%20at%20the%20top:%20bonds%20dashboard%20and%20bonds%20proceed.%20and%20for%20the%20bond%20name%20give%20them%20lesser%20known%20or%20made%20up%20names">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ServiceNow for Accounting | Bonds Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f7fa;
+            color: #333;
+            font-size: 14px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .dashboard {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            transition: transform 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .card h2 {
+            color: #0070ad;
+            margin-top: 0;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 8px;
+            font-size: 1.25em;
+        }
+        .chart-container {
+            height: 300px;
+            margin-top: 10px;
+        }
+        .account-codes {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .account-code {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            color: #333;
+        }
+        .pie-chart-container {
+            height: 400px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <main class="container">
+        <div class="dashboard">
+            <div class="card">
+                <h2>Bond Performance Overview</h2>
+                <div class="chart-container">
+                    <canvas id="bondPerformanceChart"></canvas>
+                </div>
+                <h2>Account Codes</h2>
+                <div class="account-codes">
+                    <span class="account-code" style="background-color: rgba(255, 99, 132, 0.4); color: #333;">2110 - Bond Payable</span>
+                    <span class="account-code" style="background-color: rgba(54, 162, 235, 0.4); color: #333;">2120 - Bond Premium</span>
+                    <span class="account-code" style="background-color: rgba(255, 206, 86, 0.4); color: #333;">2130 - Bond Discount</span>
+                    <span class="account-code" style="background-color: rgba(75, 192, 192, 0.4); color: #333;">5110 - Interest Expense</span>
+                    <span class="account-code" style="background-color: rgba(153, 102, 255, 0.4); color: #333;">1110 - Cash</span>
+                    <span class="account-code" style="background-color: rgba(255, 159, 64, 0.4); color: #333;">4110 - Interest Income</span>
+                    <span class="account-code" style="background-color: rgba(255, 99, 132, 0.4); color: #333;">2140 - Accrued Interest Payable</span>
+                    <span class="account-code" style="background-color: rgba(54, 162, 235, 0.4); color: #333;">1120 - Investments in Bonds</span>
+                    <span class="account-code" style="background-color: rgba(255, 206, 86, 0.4); color: #333;">3110 - Bond Sinking Fund</span>
+                    <span class="account-code" style="background-color: rgba(75, 192, 192, 0.4); color: #333;">6110 - Bond Issuance Costs</span>
+                </div>
+            </div>
+            <div class="card">
+                <h2>Bond Type Distribution</h2>
+                <div class="pie-chart-container">
+                    <canvas id="bondTypeChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script>
+        // Bond Performance Chart
+        const ctx = document.getElementById('bondPerformanceChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                datasets: [{
+                    label: 'Zephyr Municipal Bond',
+                    data: [2800000, 2750000, 2900000, 3100000, 2950000, 3200000],
+                    borderColor: 'rgb(255, 99, 132)',
+                    tension: 0.1
+                }, {
+                    label: 'Nexus Tech Ventures Bond',
+                    data: [2200000, 2350000, 2150000, 2400000, 2600000, 2500000],
+                    borderColor: 'rgb(54, 162, 235)',
+                    tension: 0.1
+                }, {
+                    label: 'Evergreen Treasury Note',
+                    data: [1800000, 1750000, 1950000, 1900000, 2050000, 2100000],
+                    borderColor: 'rgb(255, 206, 86)',
+                    tension: 0.1
+                }, {
+                    label: 'Solaris Renewable Energy Bond',
+                    data: [1100000, 1250000, 1300000, 1200000, 1400000, 1500000],
+                    borderColor: 'rgb(75, 192, 192)',
+                    tension: 0.1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: false,
+                        title: {
+                            display: true,
+                            text: 'Value ($)'
+                        }
+                    }
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Bond Performance Over Time'
+                    }
+                }
+            }
+        });
+
+        // Bond Type Distribution Chart
+        const pieCtx = document.getElementById('bondTypeChart').getContext('2d');
+        new Chart(pieCtx, {
+            type: 'pie',
+            data: {
+                labels: ['Zephyr Municipal Bond', 'Nexus Tech Ventures Bond', 'Evergreen Treasury Note', 'Solaris Renewable Energy Bond'],
+                datasets: [{
+                    data: [3200000, 2500000, 2100000, 1312050],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.7)',
+                        'rgba(54, 162, 235, 0.7)',
+                        'rgba(255, 206, 86, 0.7)',
+                        'rgba(75, 192, 192, 0.7)'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Bond Type Distribution'
+                    }
+                }
+            }
+        });
+    </script>
+</body></html>
